@@ -1,5 +1,6 @@
 use std::io; // imports io library into scope
 use rand::Rng; // imports rand library into scope
+use std::cmp::Ordering;
 
 // one of the lines ever: cargo doc --open
 
@@ -35,5 +36,14 @@ fn main() { // main function
         // get a warning
         .expect("Failed to read line");
 
+    let guess: u32 = guess.trim().parse().expect("Please type a number!");
+
     println!("You guessed: {}", guess);
+
+    match guess.cmp(&secret_number) { // note: secret_number is a string, so we have to convert it
+        // see line 39
+        Ordering::Less => println!("Too small!"),
+        Ordering::Greater => println!("Too big!"),
+        Ordering::Equal => println!("You win!")
+    }
 }
